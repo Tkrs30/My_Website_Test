@@ -23,8 +23,14 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/houses', function () {
+    return view('index');
+})->middleware(['auth'])->name('houses');
+
 Route::resource('houses', HousesController::class);
 
 Route::post('/houses/{id}/destroy', [HousesController::class, 'destroy']);
+
+Route::post('/houses/{id}/duplicate', [HousesController::class, 'update']);
 
 require __DIR__.'/auth.php';

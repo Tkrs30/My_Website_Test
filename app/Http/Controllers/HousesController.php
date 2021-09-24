@@ -92,9 +92,15 @@ class HousesController extends Controller
      * @param  \App\Models\Houses  $houses
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        dd("heyyy2");
+        $house = House::find($id);
+
+        $newhouse = $house->replicate();
+
+        $newhouse->save();
+
+        return Redirect::to('/houses');
     }
 
     /**
@@ -108,7 +114,6 @@ class HousesController extends Controller
         $house = House::find($id);
         $house->delete();
 
-        $houses = House::all();
-        return view('house.index', compact('houses'));
+        return Redirect::to('/houses');
     }
 }

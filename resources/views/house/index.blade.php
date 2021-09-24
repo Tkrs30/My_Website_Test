@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Houses') }}
         </h2>
     </x-slot>
 
@@ -9,19 +9,76 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h3><a href="/houses/create" class="no-underline hover:underline text-blue-800">Créer une nouvelle habitation</a></h3>
-                    @foreach ($houses as $house)
-                        <h1 class="text-6xl font-normal leading-normal mt-0 mb-2 text-pink-800">
-                            Habitation numéro {{ $house['id'] }}
-                        </h1>
-                        <li>Nom: {{ $house['name'] }}</li>
-                        <li>Address: {{ $house['address'] }}</li>
-                        <li>Prix de vente: {{ $house['price'] }} $</li>
-                        <li>Surface habitable: {{ $house['surface'] }} m²</li>
-                        <h3><a href="/houses/{{ $house['id'] }}" class="no-underline hover:underline text-blue-800">Modifier</a></h3>
-                    @endforeach
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Adresse</th>
+                            <th>Prix de vente</th>
+                            <th>Surface</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                            <th>Dupliquer</th>
+                        </tr>
+                        @foreach ($houses as $house)
+                        <tr>
+                            <td>{{ $house['name'] }}</td>
+                            <td>{{ $house['address'] }}</td>
+                            <td>{{ $house['price'] }} $</td>
+                            <td>{{ $house['surface'] }} m²</td>
+                            <td>
+                                <form action="/houses/{{ $house['id'] }}" method="get">
+                                    @csrf
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
+                                        Modifier
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/houses/{{ $house['id'] }}/destroy" method="post">
+                                    @csrf
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/houses/{{ $house['id'] }}/duplicate" method="post">
+                                    @csrf
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
+                                        Dupliquer
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                    </br>
+                    <center>
+                    <form action="/houses/create" method="get">
+                        @csrf
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
+                            Créer une nouvelle habitation
+                        </button>
+                    </form>
+                    </center>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
