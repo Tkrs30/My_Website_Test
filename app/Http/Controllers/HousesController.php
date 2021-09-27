@@ -126,8 +126,9 @@ class HousesController extends Controller
             'price' => 'required',
             'surface' => 'required',
         ]);
+
         if ($validator->fails()) {
-            return Redirect::to('houses/{{ $id }}')->withInput($house)->withErrors($validator);
+            return Redirect::to("houses/$id")->withInput()->withErrors($validator);
         }
         $house->name = $request->name;
         $house->address = $request->address;

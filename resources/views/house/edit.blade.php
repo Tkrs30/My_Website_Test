@@ -10,7 +10,6 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     @if($errors->any())
-                        {{ dd(get_defined_vars()) }}
                         @foreach ($errors->all() as $error)
                             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                             <strong class="font-bold">{{ __('messages.error') }} :</strong>

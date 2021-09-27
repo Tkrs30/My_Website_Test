@@ -52,14 +52,14 @@
                         </tr>
                         @endforeach
                     </table>
-                    </br>
+                    <br />
                     <form action="/houses/sort/{{ $sortby == 'surfaceup' ? 'surfacedown' : 'surfaceup' }}" method="post">
                         @csrf
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
+                        <button name="submitsort" type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
                             Trier par surface {{ $sortby == 'surfaceup' ? 'croissante' : 'décroissante' }}
                         </button>
                     </form>
-                    </br>
+                    <br />
                     <center>
                     <form action="/houses/create" method="get">
                         @csrf
@@ -71,6 +71,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="py-12">
+        <example-component />
     </div>
 </x-app-layout>
 
@@ -89,3 +92,10 @@
         background-color: #dddddd;
     }
 </style>
+
+<script>
+    const el = document.getElementsByName('submitsort');
+    if (el.length){
+        //el[0].classList.remove("bg-blue-500");
+    }
+</script>
