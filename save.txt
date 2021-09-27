@@ -29,3 +29,6 @@ https://medium.com/@chrissoemma/laravel-5-8-delete-and-soft-delete-practical-exa
 https://github.com/chrisoemma/noteapp/blob/master/app/Http/Controllers/NotesController.php
 
 https://laravel.sillo.org/laravel-5-7-par-la-pratique-les-langues/
+
+trier le tableau de la plus grande surface a la plus petite 
+activer le bouton maison

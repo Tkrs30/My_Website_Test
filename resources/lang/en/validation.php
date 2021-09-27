@@ -153,6 +153,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'name',
+        'address' => 'addresse',
+        'price' => 'price',
+        'surface' => 'surface',
+    ],
 
 ];

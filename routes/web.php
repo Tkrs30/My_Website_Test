@@ -27,10 +27,17 @@ Route::get('/houses', function () {
     return view('index');
 })->middleware(['auth'])->name('houses');
 
-Route::resource('houses', HousesController::class);
+Route::resource('houses', HousesController::class , [     
+    'names' => [
+        'index' => 'houses',
+]]);
 
 Route::post('/houses/{id}/destroy', [HousesController::class, 'destroy']);
 
-Route::post('/houses/{id}/duplicate', [HousesController::class, 'update']);
+Route::post('/houses/{id}/duplicate', [HousesController::class, 'duplicate']);
+
+Route::post('/houses/{id}/update', [HousesController::class, 'update']);
+
+Route::post('/houses/sort/{sort}', [HousesController::class, 'index']);
 
 require __DIR__.'/auth.php';

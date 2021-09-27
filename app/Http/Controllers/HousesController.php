@@ -14,11 +14,22 @@ class HousesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $houses = House::all();
-        return view('house.index', compact('houses'));
-    }
+        $sortby = 'surfacedown';
+        if (isset($request->sort)) {
+            $sortby = $request->sort;
+            if ($sortby == 'surfaceup') {
+                $houses = House::orderBy('surface', 'DESC', 'id', 'DESC')->get();
+            } else {
+                $houses = House::orderBy('surface', 'ASC', 'id', 'DESC')->get();
+            }
+        } else {
+            $houses = House::orderBy('surface', 'ASC', 'id', 'DESC')->get();
+        }
+        return view('house.index', compact('houses', 'sortby'));
+    }   
 
     /**
      * Show the form for creating a new resource.
@@ -38,6 +49,7 @@ class HousesController extends Controller
      */
     public function store(Request $request)
     {
+        $sortby = 'surfacedown';
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'address' => 'required',
@@ -58,7 +70,7 @@ class HousesController extends Controller
         $house->surface = $request->surface;
         $house->save();
         $houses = House::all();
-        return view('house.index', compact('houses'));
+        return view('house.index', compact('houses', 'sortby'));
     }
 
     /**
@@ -92,15 +104,37 @@ class HousesController extends Controller
      * @param  \App\Models\Houses  $houses
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function duplicate($id)
     {
         $house = House::find($id);
+        $sortby = 'surfacedown';
 
         $newhouse = $house->replicate();
 
         $newhouse->save();
 
-        return Redirect::to('/houses');
+        return view('house.edit', compact('house', 'sortby'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $sortby = 'surfacedown';
+        $house = House::find($request->id);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'address' => 'required',
+            'price' => 'required',
+            'surface' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to('houses/{{ $id }}')->withInput($house)->withErrors($validator);
+        }
+        $house->name = $request->name;
+        $house->address = $request->address;
+        $house->price = $request->price;
+        $house->surface = $request->surface;
+        $house->save();
+        return Redirect::to('houses');
     }
 
     /**

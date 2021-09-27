@@ -385,6 +385,15 @@
                 0 => '*',
             ),
         ),
+        'kyslik/column-sortable' => array(
+            'pretty_version' => '6.4.1',
+            'version' => '6.4.1.0',
+            'type' => 'package',
+            'install_path' => __DIR__ . '/../kyslik/column-sortable',
+            'aliases' => array(),
+            'reference' => '44f9da98acd31b2e871d0074bd638998990888b1',
+            'dev_requirement' => false,
+        ),
         'laravel/breeze' => array(
             'pretty_version' => 'v1.4.1',
             'version' => '1.4.1.0',
