@@ -32,3 +32,7 @@ https://laravel.sillo.org/laravel-5-7-par-la-pratique-les-langues/
 
 trier le tableau de la plus grande surface a la plus petite 
 activer le bouton maison
+
+pour post axios send post -> rechercher sur google
+
+https://stackblitz.com/edit/axios-http-post-request-examples-lvlyv4?file=post-request-set-headers.js

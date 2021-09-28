@@ -40,4 +40,6 @@ Route::post('/houses/{id}/update', [HousesController::class, 'update']);
 
 Route::post('/houses/sort/{sort}', [HousesController::class, 'index']);
 
+Route::post('/houses/sort/surfacedown', [HousesController::class, 'store']);
+
 require __DIR__.'/auth.php';

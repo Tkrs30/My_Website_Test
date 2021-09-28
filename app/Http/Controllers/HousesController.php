@@ -49,6 +49,7 @@ class HousesController extends Controller
      */
     public function store(Request $request)
     {
+        dd("heyyyy");
         $sortby = 'surfacedown';
         $validator = Validator::make($request->all(), [
             'name' => 'required',
