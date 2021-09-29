@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\House;
+use Inertia\Inertia;
 use Validator;
 use Redirect;
 
@@ -49,7 +50,6 @@ class HousesController extends Controller
      */
     public function store(Request $request)
     {
-        dd("heyyyy");
         $sortby = 'surfacedown';
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -71,7 +71,9 @@ class HousesController extends Controller
         $house->surface = $request->surface;
         $house->save();
         $houses = House::all();
+        
         return view('house.index', compact('houses', 'sortby'));
+
     }
 
     /**

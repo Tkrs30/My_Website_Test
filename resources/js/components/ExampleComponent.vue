@@ -6,29 +6,29 @@
                   <h3 class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800">
                     Nouvelle Maison
                   </h3>
-                  <form @submit.prevent="postNow" method="post">
+                  <form v-on:submit.prevent="postNow" method="post">
                       <h3 class="text-1xl font-normal leading-normal mt-0 mb-2 text-black">
                         Nom de l'habitation
                       </h3>
                       <div class="mb-3 pt-0">
-                          <input name="name" type="text" value="" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"/>
+                          <input v-model="names" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"/>
                       </div>
                       <h3 class="text-1xl font-normal leading-normal mt-0 mb-2 text-black">
                         Adresse
                       </h3>
                       <div class="mb-3 pt-0">
-                          <textarea name="address" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" rows="4"></textarea>
+                          <textarea v-model="adresse" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none" rows="4"></textarea>
                       </div>
                       <h3 class="text-1xl font-normal leading-normal mt-0 mb-2 text-black">
                         Prix affiché
                       </h3>
                       <div class="mb-3 pt-0">
-                          <input name="price" type="number"  class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"/>
+                          <input v-model="price" type="number"  class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"/>
                       </div><h3 class="text-1xl font-normal leading-normal mt-0 mb-2 text-black">
                         Surface habitable
                       </h3>
                       <div class="mb-3 pt-0">
-                          <input name="surface" type="number"  class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"/>
+                          <input v-model="surface" type="number"  class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"/>
                       </div>
                       <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
                         Valider
@@ -41,31 +41,32 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Button from "../../../vendor/laravel/breeze/stubs/inertia-vue/resources/js/Components/Button.vue";
 export default {
   name: 'formPost',
   data() {
     return {
-      name: 'name',
-      address: 'address',
-      price: 'price',
-      surface: 'surface',
-      show: false,
+      names: '',
+      adresse: '',
+      price: '',
+      surface: '',
     };
   },
   methods: {
     postNow() {
-      axios.post('/houses/sort/surfacedown', {
-        name: this.name,
-        address: this.address,
+      axios.post('/houses', {
+        name: this.names,
+        address: this.adresse,
         price: this.price,
         surface: this.surface,
       })
       .then((data) => {
-        console.log("saluuuuuuuuuuuuuuuuut", data.data)
+        console.log("saluuuuuuuuuuuuuuuuut")
+        document.location.href = "/houses";
       })
       .catch((err) => {
-        console.log("heyyyyyy !!!!", err)
+        console.log("heyyyyyy !!!!")
       });
     },
   }
