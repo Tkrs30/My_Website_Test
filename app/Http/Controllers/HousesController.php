@@ -154,4 +154,12 @@ class HousesController extends Controller
 
         return Redirect::to('/houses');
     }
+
+    public function list($id)
+    {
+        return response()->json([
+            'houses' => \App\Models\House::find($id)
+        ], Response::HTTP_OK);
+        
+    }
 }

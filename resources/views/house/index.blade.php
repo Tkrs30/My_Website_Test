@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="py-12">
-        <example-component/>
+        <edit-component/>
     </div>
 </x-app-layout>
 

@@ -42,4 +42,6 @@ Route::post('/houses/sort/{sort}', [HousesController::class, 'index']);
 
 Route::post('/houses/sort/surfacedown', [HousesController::class, 'store']);
 
+Route::get('list', [HousesController::class, 'list']);
+
 require __DIR__.'/auth.php';

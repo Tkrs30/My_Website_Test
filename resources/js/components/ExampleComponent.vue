@@ -60,9 +60,8 @@ export default {
         address: this.adresse,
         price: this.price,
         surface: this.surface,
-      })
+        })
       .then((data) => {
-        console.log("saluuuuuuuuuuuuuuuuut")
         document.location.href = "/houses";
       })
       .catch((err) => {

@@ -54,4 +54,7 @@
             </div>
         </div>
     </div>
+    <div class="py-12">
+        <edit-component/>
+    </div>
 </x-app-layout>
