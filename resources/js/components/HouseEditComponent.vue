@@ -141,10 +141,10 @@
 export default {
   data() {
     return {
-      name: "",
-      address: "",
-      price: "",
-      surface: "",
+      name: this.house.name,
+      address: this.house.address,
+      price: this.house.price,
+      surface: this.house.surface,
       errors: [],
     };
   },
@@ -177,7 +177,7 @@ export default {
     },
     postNow() {
       axios
-        .post("/houses", {
+        .put("/houses/" + this.house.id, {
           name: this.name,
           address: this.address,
           price: this.price,

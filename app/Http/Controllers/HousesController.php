@@ -37,7 +37,7 @@ class HousesController extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'price' => 'required',
+            'price' => 'required|min:6',
             'surface' => 'required',
         ]);
 
@@ -58,24 +58,21 @@ class HousesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $sortby = 'surfacedown';
-        $house = House::find($request->id);
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric|gte:100000|lte:400000',
             'surface' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return Redirect::to("houses/$id")->withInput()->withErrors($validator);
-        }
+        $house = House::find($id);
         $house->name = $request->name;
         $house->address = $request->address;
         $house->price = $request->price;
         $house->surface = $request->surface;
         $house->save();
-        return Redirect::to('houses');
+
+        return $house;
     }
 
     public function duplicate($id)
@@ -92,7 +89,8 @@ class HousesController extends Controller
 
     public function show($id)
     {
-        return House::find($id);
+        $house = House::find($id);
+        return view('house.delete', compact('house'));
     }
 
     public function destroy($id)

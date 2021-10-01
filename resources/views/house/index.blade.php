@@ -26,12 +26,7 @@
                             <td>{{ $house['price'] }} $</td>
                             <td>{{ $house['surface'] }} m²</td>
                             <td>
-                                <form action="/houses/{{ $house['id'] }}" method="get">
-                                    @csrf
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
-                                        Modifier
-                                    </button>
-                                </form>
+                                <a class="btn btn-primary" href="{{ route('house-edit', ['house' => $house['id']])  }}" role="button">Modifier</a>
                             </td>
                             <td>
                                 <form action="/houses/{{ $house['id'] }}/destroy" method="post">
@@ -40,6 +35,7 @@
                                         Supprimer
                                     </button>
                                 </form>
+                                <a class="btn btn-primary" href="{{ route('house-deleted', ['house' => $house['id']])  }}" role="button">Supprimer</a>
                             </td>
                             <td>
                                 <form action="/houses/{{ $house['id'] }}/duplicate" method="post">

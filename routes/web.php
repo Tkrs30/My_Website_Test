@@ -26,7 +26,9 @@ Route::get('/dashboard', function () {
 Route::resource('houses', HousesController::class , [     
     'names' => [
         'index' => 'houses',
+        'show' => 'house-deleted',
         'create' => 'house-create',
+        'edit' => 'house-edit',
 ]]);
 
 Route::post('/houses/{id}/destroy', [HousesController::class, 'destroy']);
@@ -39,6 +41,6 @@ Route::post('/houses/sort/{sort}', [HousesController::class, 'index']);
 
 Route::post('/houses/sort/surfacedown', [HousesController::class, 'store']);
 
-Route::get('list', [HousesController::class, 'list']);
+//Route::get('/houses/{id}/delete',  [HousesController::class, 'delete']);
 
 require __DIR__.'/auth.php';
