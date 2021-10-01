@@ -69,7 +69,7 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('dashboard')">
+            <x-responsive-nav-link :href="route('houses')">
                 {{ __('Maison') }}
             </x-responsive-nav-link>
         </div>

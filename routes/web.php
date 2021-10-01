@@ -23,13 +23,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/houses', function () {
-    return view('index');
-})->middleware(['auth'])->name('houses');
-
 Route::resource('houses', HousesController::class , [     
     'names' => [
         'index' => 'houses',
+        'create' => 'house-create',
 ]]);
 
 Route::post('/houses/{id}/destroy', [HousesController::class, 'destroy']);

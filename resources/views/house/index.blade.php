@@ -60,20 +60,15 @@
                         </button>
                     </form>
                     <br />
-                    <center>
-                    <form action="/houses/create" method="get">
-                        @csrf
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
-                            Créer une nouvelle habitation
-                        </button>
-                    </form>
-                    </center>
+                    <div class="container text-center">
+                        <a class="btn btn-primary" href="{{ route('house-create') }}" role="button">Créer une nouvelle habitation</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="py-12">
-        <edit-component/>
+
     </div>
 </x-app-layout>
 
