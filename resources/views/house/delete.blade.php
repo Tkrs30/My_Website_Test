@@ -5,6 +5,6 @@
         </h2>
     </x-slot>
     <div class="py-12">
-        <house-create-component />
+        <house-delete-component v-bind:house="{{ $house }}" />
     </div>
 </x-app-layout>

@@ -27,11 +27,12 @@ class HousesController extends Controller
         return view('house.index', compact('houses', 'sortby'));
     }
 
+
+    // create
     public function create()
     {
         return view('house.create');
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -51,11 +52,11 @@ class HousesController extends Controller
         return $house;
     }
 
+    // edit
     public function edit(House $house)
     {
         return view('house.edit', compact('house'));
     }
-
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -75,16 +76,16 @@ class HousesController extends Controller
         return $house;
     }
 
-    public function duplicate($id)
+    // delete
+    public function delete(House $house)
+    {
+        return view('house.delete', compact('house'));
+    }
+
+    public function destroy($id)
     {
         $house = House::find($id);
-        $sortby = 'surfacedown';
-
-        $newhouse = $house->replicate();
-
-        $newhouse->save();
-
-        return view('house.edit', compact('house', 'sortby'));
+        $house->delete();
     }
 
     public function show($id)
@@ -93,12 +94,12 @@ class HousesController extends Controller
         return view('house.delete', compact('house'));
     }
 
-    public function destroy($id)
+    public function duplicate(Request $request, $id)
     {
         $house = House::find($id);
-        $house->delete();
-
-        return Redirect::to('/houses');
+        $newhouse = $house->replicate();
+        $newhouse->save();
+        return $this->index($request);
     }
 
 }

@@ -6,6 +6,10 @@
     </x-slot>
 
     <div class="py-12">
+        <house-index-component />
+    </div>
+
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
@@ -15,9 +19,9 @@
                             <th>Adresse</th>
                             <th>Prix de vente</th>
                             <th>Surface</th>
-                            <th>Modifier</th>
-                            <th>Supprimer</th>
-                            <th>Dupliquer</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                         @foreach ($houses as $house)
                         <tr>
@@ -29,43 +33,22 @@
                                 <a class="btn btn-primary" href="{{ route('house-edit', ['house' => $house['id']])  }}" role="button">Modifier</a>
                             </td>
                             <td>
-                                <form action="/houses/{{ $house['id'] }}/destroy" method="post">
-                                    @csrf
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
-                                        Supprimer
-                                    </button>
-                                </form>
-                                <a class="btn btn-primary" href="{{ route('house-deleted', ['house' => $house['id']])  }}" role="button">Supprimer</a>
+                                <a class="btn btn-danger" href="{{ route('house-delete', ['house' => $house['id']])  }}" role="button">Supprimer</a>
                             </td>
                             <td>
-                                <form action="/houses/{{ $house['id'] }}/duplicate" method="post">
-                                    @csrf
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
-                                        Dupliquer
-                                    </button>
-                                </form>
+                                <a class="btn btn-success" href="{{ route('house-duplicate', ['house' => $house['id']])  }}" role="button">Dupliquer</a>
                             </td>
                         </tr>
                         @endforeach
                     </table>
-                    <br />
-                    <form action="/houses/sort/{{ $sortby == 'surfaceup' ? 'surfacedown' : 'surfaceup' }}" method="post">
-                        @csrf
-                        <button name="submitsort" type="submit" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-gray-500 rounded">
-                            Trier par surface {{ $sortby == 'surfaceup' ? 'croissante' : 'décroissante' }}
-                        </button>
-                    </form>
-                    <br />
-                    <div class="container text-center">
+                    <div class="p-4 container text-center">
                         <a class="btn btn-primary" href="{{ route('house-create') }}" role="button">Créer une nouvelle habitation</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="py-12">
 
-    </div>
 </x-app-layout>
 
 <style>
