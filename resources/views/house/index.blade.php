@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <house-index-component />
+        <house-index-component v-bind:house="{{ $houses }}"/>
     </div>
 
     <div class="py-12">

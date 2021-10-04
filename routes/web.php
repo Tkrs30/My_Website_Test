@@ -32,5 +32,7 @@ Route::resource('houses', HousesController::class , [
 
 Route::get('/houses/{house}/delete',  [HousesController::class, 'delete'])->name('house-delete');
 Route::get('/houses/{house}/duplicate', [HousesController::class, 'duplicate'])->name('house-duplicate');
+Route::get('/data/houses', [HousesController::class, 'data']);
+
 
 require __DIR__.'/auth.php';

@@ -10,21 +10,16 @@ use Validator;
 class HousesController extends Controller
 {
 
+    public function data(Request $request)
+    {
+        $houses = House::all();
+        return $houses;
+    }
+
     public function index(Request $request)
     {
         $houses = House::all();
-        $sortby = 'surfacedown';
-        if (isset($request->sort)) {
-            $sortby = $request->sort;
-            if ($sortby == 'surfaceup') {
-                $houses = House::orderBy('surface', 'DESC', 'id', 'DESC')->get();
-            } else {
-                $houses = House::orderBy('surface', 'ASC', 'id', 'DESC')->get();
-            }
-        } else {
-            $houses = House::orderBy('surface', 'ASC', 'id', 'DESC')->get();
-        }
-        return view('house.index', compact('houses', 'sortby'));
+        return view('house.index', compact('houses'));
     }
 
 
@@ -86,12 +81,6 @@ class HousesController extends Controller
     {
         $house = House::find($id);
         $house->delete();
-    }
-
-    public function show($id)
-    {
-        $house = House::find($id);
-        return view('house.delete', compact('house'));
     }
 
     public function duplicate(Request $request, $id)
