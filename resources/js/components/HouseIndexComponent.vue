@@ -15,6 +15,21 @@
       </b-form-group>
 
       <b-table hover :fields="fields" :items="items" :select-mode="selectMode" ref="selectableTable" selectable @row-selected="onRowSelected">
+        <template #cell(show_details)="row">
+          <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+            {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+          </b-button>
+        </template>
+        <template #row-details="row">
+          <b-card>
+            <b-row class="mb-2">
+              <b-col sm="3" class="text-sm-right"><b>Date:</b></b-col>
+              <b-col>{{ new Date(row.item.created_at).toUTCString() }}</b-col>
+            </b-row>
+            <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+          </b-card>
+        </template>
+
         <template #cell(selected)="{ rowSelected }">
           <template v-if="rowSelected">
             <span aria-hidden="true">&check;</span>
@@ -44,8 +59,9 @@
         </template>
       </b-table>
       <p>
-      Selected Rows:<br>
-      {{ selected }}
+        <b-button size="sm" @click="selectAllRows">Tout selectionner</b-button>
+        <b-button size="sm" @click="clearSelected">Déselectionner tout</b-button>
+        <b-button size="sm" @click="selectDelete">Supprimer la selection</b-button>
       </p>
     </div>
   </div>
@@ -60,6 +76,7 @@ export default {
         {
           key: 'name',
           sortable: true,
+          variant: 'danger',
         },
         {
           key: 'address',
@@ -93,10 +110,11 @@ export default {
           label : '',
           sortable: true,
         },
+        'show_details',
       ],
       items: [],
       selectMode: 'multi',
-      selected: []
+      selected: [],
     };
   },
   mounted() {
@@ -109,6 +127,20 @@ export default {
           this.items = response.data
         })
     },
+    selectDelete() {
+      axios.get('/data/deleted', {
+        params: {
+          items : this.selected,
+        }
+      })
+      .then((response)=>{
+        console.log("c'est passe la !")
+        document.location.href = "/houses";
+      })
+      .catch((response => {
+        console.log("c'est passe ici !")
+      }))
+    },
     onRowSelected(items) {
       this.selected = items
     },
@@ -118,14 +150,6 @@ export default {
     clearSelected() {
       this.$refs.selectableTable.clearSelected()
     },
-    selectThirdRow() {
-      // Rows are indexed from 0, so the third row is index 2
-      this.$refs.selectableTable.selectRow(2)
-    },
-    unselectThirdRow() {
-      // Rows are indexed from 0, so the third row is index 2
-      this.$refs.selectableTable.unselectRow(2)
-    }
   },
   created() {
     this.getUser()

@@ -83,6 +83,15 @@ class HousesController extends Controller
         $house->delete();
     }
 
+    public function deleteselec(Request $request)
+    {
+        foreach ($request->items as $key => $value) {
+            $temp = json_decode($value, true);
+            $house = House::find($temp['id']);
+            $house->delete();
+        }
+    }
+
     public function duplicate(Request $request, $id)
     {
         $house = House::find($id);

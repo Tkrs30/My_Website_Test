@@ -100,10 +100,30 @@ ajouter le sorting su tableau -> fait
 ajout de colonne prix ttc prix * 20% -> fait
 ajouter rowaction modifier/supprimer/Dupliquer -> fait
 mettre en rouge le name -> fait
+ajouter le rowselect et un bouton supprimer la selection -> fait
+ajouter showdetail qui permet d'afficher le champ created_at en fr -> 3/4 fait
 
 pas finis :
-ajouter showdetail qui permet d'afficher le champ created_at en fr
-ajouter le rowselect et un bouton supprimer la selection
 ajouter le filtering style taper maison pinar que y'ai que alfred pinar qui sorte
 pagination intellogeante avec recuparation de la portion de donnée utile
 mettre le prix en rouge uniquement si c'est > a un certain chiffre dans ce cas le texte dans la case devient clickable et afficher un modal ou y'a marqué c'est trop cher et dans ce modal bouton suppr intelligent.
+
+
+
+
+
+
+
+
+
+
+public static char[] decode(char[]message, char[]entree, char[]sortie) {
+    int identite = 0;
+
+    for (int i = 0; i < message.lenght; i++) {
+        identite = rang(message[i], entree); -> ici on recupere l'identite grace a ta fonction.
+        message[i] = sortie[i]; -> ici je dis que la lettre qu'on 
+                                   regarde on la remplace la lettre qu'on a encodé
+    }
+    return (message);
+}
