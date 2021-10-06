@@ -102,11 +102,11 @@ ajouter rowaction modifier/supprimer/Dupliquer -> fait
 mettre en rouge le name -> fait
 ajouter le rowselect et un bouton supprimer la selection -> fait
 ajouter showdetail qui permet d'afficher le champ created_at en fr -> 3/4 fait
+ajouter le filtering style taper maison pinar que y'ai que alfred pinar qui sorte -> fait sans triche
+pagination intelligeante avec recuparation de la portion de donnée utile -> fait
+mettre le prix en rouge uniquement si c'est > a un certain chiffre dans ce cas le texte dans la case devient clickable et afficher un modal ou y'a marqué c'est trop cher et dans ce modal bouton suppr intelligent.
 
 pas finis :
-ajouter le filtering style taper maison pinar que y'ai que alfred pinar qui sorte
-pagination intellogeante avec recuparation de la portion de donnée utile
-mettre le prix en rouge uniquement si c'est > a un certain chiffre dans ce cas le texte dans la case devient clickable et afficher un modal ou y'a marqué c'est trop cher et dans ce modal bouton suppr intelligent.
 
 
 
