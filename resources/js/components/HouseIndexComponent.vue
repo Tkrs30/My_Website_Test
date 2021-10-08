@@ -272,17 +272,18 @@ export default {
   },
   computed: {},
   mounted() {
-    this.getUser();
+    //this.getUser();
   },
   methods: {
     myProvider(ctx) {
       console.log("ctx: ", ctx)
-      const promise = axios.get('/data/houses?page=' + ctx.currentPage + '&size=' + ctx.perPage + '&filter=' + (ctx.filter || '') + '&sortBy=' + ctx.sortBy + '&sortDesc=' + ctx.sortDesc)
+      const promise = axios.get("/data/houses?page=" + ctx.currentPage + "&size=" + ctx.perPage * 1 + "&filter=" + (ctx.filter || '') + "&sortBy=" + ctx.sortBy + "&sortDesc=" + ctx.sortDesc);
       console.log("promaise:", promise)
       // Must return a promise that resolves to an array of items
-      return promise.then(data => {
+      return promise.then(response => {
         // Pluck the array of items off our axios response
-        const items = data.data
+        const items = response.data.data;
+        this.totalRows = response.data.count;
         // Must return an array of items or an empty array if an error occurred
         return items || []
       })

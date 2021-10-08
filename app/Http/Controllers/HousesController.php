@@ -13,17 +13,20 @@ class HousesController extends Controller
     public function data(Request $request)
     {
         $data = new House;
+        $count = $data->count();
         if (strlen($request->filter) > 0){
             $data = $data->where('name', 'like', '%' . $request->filter . '%');
         }
         if ($request['sortby'] != '' && $request['sortby'] != 'null') {
             $data = $data->orderBy($request['sortby'], $request['sortdesc'] == 'false' ? 'asc' : 'desc');
         }
-        $count = $data->count();
         $data = $data->offset(($request['page'] - 1) * $request['size'])->limit($request['size']);
+        $countWhere = $data->count();
+
         return response()->json([
             'data' => $data->get(),
-            'count' => $count
+            'count' => $count,
+            'countWhere' => $countWhere
         ]);
         /* $houses = new House;
         if ($request->filter) {
