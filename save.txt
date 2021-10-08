@@ -127,3 +127,7 @@ public static char[] decode(char[]message, char[]entree, char[]sortie) {
     }
     return (message);
 }
+
+eloquent request :
+    - https://qastack.fr/programming/13386774/using-eloquent-orm-in-laravel-to-perform-search-of-database-using-like
+    - 

@@ -12,8 +12,26 @@ class HousesController extends Controller
 
     public function data(Request $request)
     {
-        $houses = House::all();
-        return $houses;
+        $data = new House;
+        if (strlen($request->filter) > 0){
+            $data = $data->where('name', 'like', '%' . $request->filter . '%');
+        }
+        if ($request['sortby'] != '' && $request['sortby'] != 'null') {
+            $data = $data->orderBy($request['sortby'], $request['sortdesc'] == 'false' ? 'asc' : 'desc');
+        }
+        $count = $data->count();
+        $data = $data->offset(($request['page'] - 1) * $request['size'])->limit($request['size']);
+        return response()->json([
+            'data' => $data->get(),
+            'count' => $count
+        ]);
+        /* $houses = new House;
+        if ($request->filter) {
+            $houses = $houses->where('name', 'LIKE', "%".$request->filter."%")->orWhere('address', 'LIKE', "%".$request->filter."%");
+        }
+        $houses = $houses->limit($request->size)->offset(0);
+
+        return $houses->get(); */
     }
 
     public function index(Request $request)
@@ -83,13 +101,9 @@ class HousesController extends Controller
         $house->delete();
     }
 
-    public function deleteselec(Request $request)
+    public function deleteselected(Request $request)
     {
-        foreach ($request->items as $key => $value) {
-            $temp = json_decode($value, true);
-            $house = House::find($temp['id']);
-            $house->delete();
-        }
+        House::destroy($request->ids);
     }
 
     public function duplicate(Request $request, $id)

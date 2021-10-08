@@ -60,11 +60,13 @@
         </b-col>
 
         <b-table
+          name="table"
           hover
           :fields="fields"
-          :items="items"
+          :items="myProvider"
           :select-mode="selectMode"
           ref="selectableTable"
+          id="selectableTable"
           selectable
           @row-selected="onRowSelected"
           :current-page="currentPage"
@@ -273,6 +275,18 @@ export default {
     this.getUser();
   },
   methods: {
+    myProvider(ctx) {
+      console.log("ctx: ", ctx)
+      const promise = axios.get('/data/houses?page=' + ctx.currentPage + '&size=' + ctx.perPage + '&filter=' + (ctx.filter || '') + '&sortBy=' + ctx.sortBy + '&sortDesc=' + ctx.sortDesc)
+      console.log("promaise:", promise)
+      // Must return a promise that resolves to an array of items
+      return promise.then(data => {
+        // Pluck the array of items off our axios response
+        const items = data.data
+        // Must return an array of items or an empty array if an error occurred
+        return items || []
+      })
+    },
     getUser() {
       axios.get("/data/houses").then((response) => {
         this.items = response.data;
@@ -281,22 +295,21 @@ export default {
     },
     selectDelete() {
       axios
-        .get("/data/deleted", {
-          params: {
-            items: this.selected,
-          },
+        .post("/data/deleted", {
+          ids: this.selected.map((item) => item.id),
         })
         .then((response) => {
-          document.location.href = "/houses";
-        })
-        .catch((response) => {
-          console.log("c'est passe ici !");
-        });
+          this.$root.$emit('bv::refresh::table', 'selectableTable')
+          console.log("c'est ici que ca se passe !")
+          })
     },
     onRowSelected(items) {
       this.selected = items;
     },
     selectAllRows() {
+      console.log(this.$refs.selectableTable.refresh())
+      this.$root.$emit('bv::refresh::table', 'selectableTable')
+      return
       this.$refs.selectableTable.selectAllRows();
     },
     clearSelected() {
