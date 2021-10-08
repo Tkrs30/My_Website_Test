@@ -3,9 +3,9 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <b-container fluid>
         <b-form-group
-        label="Selection mode:"
-        label-for="table-select-mode-select"
-        label-cols-md="4"
+          label="Selection mode:"
+          label-for="table-select-mode-select"
+          label-cols-md="4"
         >
           <b-form-select
             id="table-select-mode-select"
@@ -59,7 +59,8 @@
           </b-form-group>
         </b-col>
 
-        <b-table hover
+        <b-table
+          hover
           :fields="fields"
           :items="items"
           :select-mode="selectMode"
@@ -80,7 +81,7 @@
         >
           <template #cell(show_details)="row">
             <b-button size="sm" @click="row.toggleDetails" class="mr-2">
-              {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+              {{ row.detailsShowing ? "Hide" : "Show" }} Details
             </b-button>
           </template>
 
@@ -90,7 +91,9 @@
                 <b-col sm="3" class="text-sm-right"><b>Date:</b></b-col>
                 <b-col>{{ new Date(row.item.created_at).toUTCString() }}</b-col>
               </b-row>
-              <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+              <b-button size="sm" @click="row.toggleDetails"
+                >Hide Details</b-button
+              >
             </b-card>
           </template>
 
@@ -106,36 +109,57 @@
             </template>
           </template>
           <template #cell(price)="data">
-            <template v-if=" data.item.price > customDropdown">
-              <b-button @click="sendInfo(data.item.id)" class="btn btn-danger" v-b-modal.modal-1>{{ data.item.price }}</b-button>
+            <template v-if="data.item.price > customDropdown">
+              <b-button
+                @click="sendInfo(data.item.id)"
+                class="btn btn-danger"
+                v-b-modal.modal-1
+                >{{ data.item.price }}</b-button
+              >
             </template>
             <template v-else>
               {{ data.item.price }}
             </template>
           </template>
 
-          <template #cell(price2)="data">
-            {{ data.item.price + (data.item.price * 0.2) }}
-          </template>
-
           <template #cell(button1)="data">
-            <a class="btn btn-primary" :href="`${'/houses/' + data.item.id + '/edit' }`" role="button">Modifier</a>
+            <a
+              class="btn btn-primary"
+              :href="`${'/houses/' + data.item.id + '/edit'}`"
+              role="button"
+              >Modifier</a
+            >
           </template>
 
           <template #cell(button2)="data">
-            <a class="btn btn-danger" :href="`${'/houses/' + data.item.id + '/delete' }`" role="button">Supprimer</a>
+            <a
+              class="btn btn-danger"
+              :href="`${'/houses/' + data.item.id + '/delete'}`"
+              role="button"
+              >Supprimer</a
+            >
           </template>
 
           <template #cell(button3)="data">
-            <a class="btn btn-success" :href="`${'/houses/' + data.item.id + '/duplicate' }`" role="button">Dupliquer</a>
+            <a
+              class="btn btn-success"
+              :href="`${'/houses/' + data.item.id + '/duplicate'}`"
+              role="button"
+              >Dupliquer</a
+            >
           </template>
-
         </b-table>
 
         <p>
-          <b-button size="sm" @click="selectAllRows">Tout selectionner</b-button>
-          <b-button size="sm" @click="clearSelected">Déselectionner tout</b-button>
-          <b-button size="sm" @click="selectDelete">Supprimer la selection</b-button>
+          <b-button size="sm" @click="selectAllRows"
+            >Tout selectionner</b-button
+          >
+          <b-button size="sm" @click="clearSelected"
+            >Déselectionner tout</b-button
+          >
+          <b-button size="sm" @click="selectDelete"
+            >Supprimer la selection</b-button
+          >
         </p>
 
         <b-col sm="7" md="6" class="my-1 p-4 container text-center">
@@ -155,12 +179,22 @@
           </template>
           <div class="d-block text-center">
             <h3>Veuilliez supprimer votre annonce :</h3>
-            <a class="btn btn-danger" :href="`${'/houses/' + selectedData + '/delete' }`" role="button">Supprimer</a>
+            <a
+              class="btn btn-danger"
+              :href="`${'/houses/' + selectedData + '/delete'}`"
+              role="button"
+              >Supprimer</a
+            >
           </div>
         </b-modal>
 
         <div class="p-4 container text-center">
-            <a class="btn btn-primary" :href="`${'/houses/create/'}`" role="button">Créer une nouvelle habitation</a>
+          <a
+            class="btn btn-primary"
+            :href="`${'/houses/create/'}`"
+            role="button"
+            >Créer une nouvelle habitation</a
+          >
         </div>
       </b-container>
     </div>
@@ -171,110 +205,106 @@
 export default {
   data() {
     return {
-      modes: ['multi', 'single', 'range'],
+      modes: ["multi", "single", "range"],
       fields: [
         {
-          key: 'name',
+          key: "name",
           sortable: true,
-          variant: 'danger',
+          tdClass: "red",
         },
         {
-          key: 'address',
-          sortable: true,
-        },
-        {
-          key: 'price',
+          key: "address",
           sortable: true,
         },
         {
-          key: 'surface',
+          key: "price",
           sortable: true,
         },
         {
-          key: 'price2',
-          label : 'Prix TTC',
+          key: "surface",
           sortable: true,
         },
         {
-          key: 'button1',
-          label : '',
+          key: "price2",
+          label: "Prix TTC",
+          sortable: true,
+          formatter: (value, key, item) => {
+            return item.price * 1.2;
+          },
+          sortByFormatted: true,
         },
         {
-          key: 'button2',
-          label : '',
+          key: "button1",
+          label: "",
         },
         {
-          key: 'button3',
-          label : '',
+          key: "button2",
+          label: "",
         },
-        'show_details',
+        {
+          key: "button3",
+          label: "",
+        },
+        "show_details",
       ],
       totalRows: 1,
       currentPage: 1,
       perPage: 5,
       pageOptions: [5, 10, 15, { value: 100, text: "Show a lot" }],
-      sortBy: '',
+      sortBy: "",
       sortDesc: false,
-      sortDirection: 'asc',
+      sortDirection: "asc",
       filter: null,
-      filterOn: ['name'],
+      filterOn: ["name"],
       infoModal: {
-        id: 'info-modal',
-        title: '',
-        content: ''
+        id: "info-modal",
+        title: "",
+        content: "",
       },
       items: [],
-      selectMode: 'multi',
+      selectMode: "multi",
       selected: [],
       customDropdown: 500000,
-      selectedData: '',
+      selectedData: "",
     };
   },
-  computed: {
-    sortOptions() {
-      return this.fields
-        .filter(f => f.sortable)
-        .map(f => {
-          return { text: f.label, value: f.key }
-        })
-    }
-  },
+  computed: {},
   mounted() {
-    this.getUser()
+    this.getUser();
   },
   methods: {
-    getUser(){
-      axios.get('/data/houses')
-        .then((response)=>{
-          this.items = response.data
-          this.totalRows = this.items.length
-        })
+    getUser() {
+      axios.get("/data/houses").then((response) => {
+        this.items = response.data;
+        this.totalRows = this.items.length;
+      });
     },
     selectDelete() {
-      axios.get('/data/deleted', {
-        params: {
-          items : this.selected,
-        }
-      })
-      .then((response)=>{
-        document.location.href = "/houses";
-      })
-      .catch((response => {
-        console.log("c'est passe ici !")
-      }))
+      axios
+        .get("/data/deleted", {
+          params: {
+            items: this.selected,
+          },
+        })
+        .then((response) => {
+          document.location.href = "/houses";
+        })
+        .catch((response) => {
+          console.log("c'est passe ici !");
+        });
     },
     onRowSelected(items) {
-      this.selected = items
+      this.selected = items;
     },
     selectAllRows() {
-      this.$refs.selectableTable.selectAllRows()
+      this.$refs.selectableTable.selectAllRows();
     },
     clearSelected() {
-      this.$refs.selectableTable.clearSelected()
+      this.$refs.selectableTable.clearSelected();
     },
     onFiltered(filteredItems) {
-      this.totalRows = filteredItems.length
-      this.currentPage = 1
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
     },
     sendInfo(item) {
       this.selectedData = item;
@@ -283,5 +313,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+.red {
+  color: red;
+}
 </style>
